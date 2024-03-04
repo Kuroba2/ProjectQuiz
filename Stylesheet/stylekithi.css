@@ -1,0 +1,16 @@
+/* CSS for main container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* CSS for search section */
+.search-section {
+    margin-bottom: 20px;
+}
+
+/* CSS for result section */
+.result-section {
+    margin-bottom: 20px;
+}

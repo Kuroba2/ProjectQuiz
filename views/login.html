@@ -91,24 +91,26 @@
 
     $('#user_name').focus()
 
-    var users = localStorage.getItem('users');
-    if (!users) {
-        // Nếu mảng user chưa tồn tại, tạo một mảng mới và lưu vào localStorage
-        users = [];
-        users.push({
-            username: "admin",
-            password: "111"
-        });
-    } else {
-        // Nếu mảng user đã tồn tại, chuyển đổi từ chuỗi JSON sang mảng JavaScript
-        users = JSON.parse(users);
-    }
+    var users = JSON.parse(localStorage.getItem('users')) ;
+    users = []
+    users.push( {
+        username: "admin",
+        password: "111"
+        })
+    localStorage.setItem('users', JSON.stringify(users));// Lưu mảng users vào localStorage
 
+    // if (users) {   
+    //     // Nếu mảng user chưa tồn tại, tạo một mảng mới và lưu vào localStorage
+     
+    // } else {
+    //     // Nếu mảng user đã tồn tại, chuyển đổi từ chuỗi JSON sang mảng JavaScript
+    //     // users = JSON.parse(users);
+    // }
+    console.log(users);
     function login() {
         if (validate()) {
             // Kiểm tra xem mảng user đã tồn tại trong localStorage chưa
-            if (users.find(user => user.username === $('#user_name').val() && user.password === $('#password').val() && user.username === "admin")) {
-
+            if (users.find(user => user.username === $('#user_name').val() && user.password === $('#password').val() && user.username == "admin")) {
                 window.location.href = 'admin_dashboard.html'
             }
             if (users.find(user => user.username === $('#user_name').val() && user.password === $('#password').val() && user.username != "admin" ) ) {

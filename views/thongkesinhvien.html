@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Statistics</title>
+    <link rel="stylesheet" type="text/css" href="/Stylesheet/stylekithi.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="search-section">
+            <h1>Tìm kiếm kết quả sinh viên</h1>
+            <form onsubmit="event.preventDefault(); searchResult();">
+                <label for="subjectName">Nhập tên môn học:</label>
+                <input type="text" id="subjectName" name="subjectName" required>
+                <button type="submit">Tìm kiếm</button>
+            </form>
+            <div id="searchResult"></div>
+        </div>
+        <div class="result-section">
+            <h2>Xem chi tiết kỳ thi</h2>
+            <form onsubmit="event.preventDefault(); viewExamDetails();">
+                <label for="subjectNameExam">Nhập tên môn học:</label>
+                <input type="text" id="subjectNameExam" name="subjectNameExam" required>
+                <button type="submit">Xem chi tiết</button>
+            </form>
+            <div id="examDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm để thực hiện tìm kiếm kết quả sinh viên
+        function searchResult() {
+            var subjectName = document.getElementById("subjectName").value;
+            var searchRequest = new XMLHttpRequest();
+            searchRequest.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("searchResult").innerHTML = this.responseText;
+                }
+            };  
+            searchRequest.open("POST", "timkiemsinhvien.php", true);
+            searchRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            searchRequest.send("subjectName=" + subjectName);
+        }
+
+        // Hàm để xem chi tiết kỳ thi
+        function viewExamDetails() {
+            var subjectNameExam = document.getElementById("subjectNameExam").value;
+            var examRequest = new XMLHttpRequest();
+            examRequest.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("examDetails").innerHTML = this.responseText;
+                }
+            };  
+            examRequest.open("POST", "chitietkithi.php", true);
+            examRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            examRequest.send("subjectNameExam=" + subjectNameExam);
+        }
+    </script>
+</body>
+</html>

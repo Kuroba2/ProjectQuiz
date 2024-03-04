@@ -1,0 +1,31 @@
+.statistics,
+.chart {
+    width: 48%; /* Đảm bảo chúng nằm cạnh nhau và cùng chiều rộng */
+    float: left; /* Cân đối hai phần tử nằm cạnh nhau */
+    margin-right: 4%; /* Tạo khoảng cách giữa hai phần tử */
+}
+
+.chart {
+    height: 300px; /* Đảm bảo cùng chiều cao với biểu đồ */
+}
+
+.statistics table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.statistics th,
+.statistics td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.statistics th {
+    background-color: #f2f2f2;
+}
+
+.search-section {
+    height: 200px; 
+    margin-top: 20px;
+}
