@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'BeVietNam-Bold';
+    src: url('/Fonts/BeVietNam/BeVietnamPro-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'BeVietNam-ExtraBold';
+    src: url('/Fonts/BeVietNam/BeVietnamPro-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: 'BeVietNam-Medium';
+    src: url('/Fonts/BeVietNam/BeVietnamPro-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'BeVietNam-Regular';
+    src: url('/Fonts/BeVietNam/BeVietnamPro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'BeVietNam-SemiBold';
+    src: url('/Fonts/BeVietNam/BeVietnamPro-SemiBold.ttf');
+}
+
+.f-f-BeVietNam-SemiBold {
+    font-family: 'BeVietNam-SemiBold';
+    /* font-weight: 600; */
+
+}
+
+.f-f-BeVietNam-Bold {
+    font-family: 'BeVietNam-Bold';
+    /* font-weight: 700; */
+
+}
+
+.f-f-BeVietNam-ExtraBold {
+    font-family: 'BeVietNam-ExtraBold';
+    /* font-weight: 800; */
+
+}
+
+.f-f-BeVietNam-Medium {
+    font-family: 'BeVietNam-Medium';
+    /* font-weight: 500; */
+
+}
+
+.f-f-BeVietNam-Regular {
+    font-family: 'BeVietNam-Regular';
+    /* font-weight: 400; */
+}

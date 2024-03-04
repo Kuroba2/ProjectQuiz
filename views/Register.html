@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Stylesheet/style.css">
+    <link rel="stylesheet" href="/Stylesheet/font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+
+<body style="background: linear-gradient(to left, #FF0000, #FFD700); height: 100vh !important;">
+
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-start h-100 align-items-center">
+                <div class="col-5 p-5"
+                    style="border-radius: 8px;box-shadow: -7px 7px 5px 1px rgba(0, 0, 0, 0.25); background-color: #fff;">
+                    <div class="row">
+                        <div class="col-auto f-s-32 f-f-BeVietNam-SemiBold">
+                            Đăng ký
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="d-flex gap-2 px-3 form-group"
+                            style="border-radius: 9px;border: 0.833px solid #b3b3c9;">
+                            <img src="/Image/Login/i-user.svg" alt="">
+                            <input class="form-control f-s-14 py-3" type="text" id="user_name" required focus="true"
+                                style="border: none; box-shadow: none;" placeholder="Nhập email hoặc số điện thoại">
+                        </div>
+                        <div class="invalid-feedback mess_user f-f-BeVietNam-Regular f-s-14">
+                            Vui lòng nhập username.
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex gap-2 px-3 form-group"
+                            style="border-radius: 9px;border: 0.833px solid #b3b3c9;">
+                            <img src="/Image/Login/i-password.svg" alt="">
+                            <input class="form-control f-s-14 py-3" type="password" id="password" required
+                                style="border: none; box-shadow: none;" placeholder="Mật khẩu">
+                            <img class="see_password" style="cursor: pointer;" src="/Image/Login/i-see.svg" alt="">
+
+                        </div>
+                        <div class="invalid-feedback mess_password f-f-BeVietNam-Regular f-s-14">
+                            Vui lòng nhập mật khẩu.
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex gap-2 px-3 form-group"
+                            style="border-radius: 9px;border: 0.833px solid #b3b3c9;">
+                            <img src="/Image/Login/i-password.svg" alt="">
+                            <input class="form-control f-s-14 py-3" type="password" id="repeat_password" required
+                                style="border: none; box-shadow: none;" placeholder="Nhập lại mật khẩu">
+                            <img class="see_password" style="cursor: pointer;" src="/Image/Login/i-see.svg" alt="">
+
+                        </div>
+                        <div class="invalid-feedback mess_repeat_password f-f-BeVietNam-Regular f-s-14">
+                            Vui lòng nhập lại mật khẩu.
+                        </div>
+                        <div class="invalid-feedback mess_repeat_password2 f-f-BeVietNam-Regular f-s-14">
+                            Mật khẩu nhập lại chưa chính xác.
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 px-0">
+                            <button class="w-100 text-white py-3" onclick="register()"
+                                style="border: none; outline: none; border-radius: 9px; background-color: #5381F8;">Đăng
+                                ký</button>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-2 justify-content-center">
+                        <div class="col-auto f-s-14 f-f-BeVietNam-Regular">
+                            Bạn đã có tài khoản? <a href="/views/login.html"
+                                style="text-decoration: none; cursor: pointer;">Đăng
+                                nhập</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+</body>
+<script>
+
+    $('#user_name').focus()
+
+    function register() {
+        if (validate()) {
+
+            // Kiểm tra xem mảng user đã tồn tại trong localStorage chưa
+            var users = localStorage.getItem('users');
+            if (!users) {
+                // Nếu mảng user chưa tồn tại, tạo một mảng mới và lưu vào localStorage
+                users = [];
+            } else {
+                // Nếu mảng user đã tồn tại, chuyển đổi từ chuỗi JSON sang mảng JavaScript
+                users = JSON.parse(users);
+            }
+            if (users.find(user => user.username === $('#user_name').val())) {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Tên đăng nhập đã tồn tại",
+                    showConfirmButton: true,
+                    // timer: 1500
+                });
+                return;
+            }
+            // Tạo một đối tượng chứa thông tin đăng ký
+            var user = {
+                username: `${$('#user_name').val()}`,
+                password: `${$('#password').val()}`,
+            };
+            // Thêm đối tượng user vào mảng users
+            users.push(user);
+            // Lưu mảng users vào localStorage
+            localStorage.setItem('users', JSON.stringify(users));// Lưu mảng users vào localStorage
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Đăng ký thành công",
+                showConfirmButton: true,
+                timer: 1500
+            }).then((result) => {
+                $('input').val('')
+            });
+
+
+
+        }
+
+
+    }
+    function validate() {
+
+
+        if ($('#user_name').val() == '') {
+            $('.mess_user').addClass('d-block');
+        }
+        else {
+            $('.mess_user').removeClass('d-block');
+        }
+        if ($('#password').val() == '') {
+            $('.mess_password').addClass('d-block');
+        }
+        else {
+            $('.mess_password').removeClass('d-block');
+        }
+        if ($('#repeat_password').val() == '') {
+            $('.mess_repeat_password').addClass('d-block');
+        }
+        else {
+            $('.mess_repeat_password').removeClass('d-block');
+        }
+        if ($('#password').val() != $('#repeat_password').val()) {
+            $('.mess_repeat_password2').addClass('d-block');
+        }
+        else {
+            $('.mess_repeat_password2').removeClass('d-block');
+        }
+        if ($('#user_name').val() != '' && $('#password').val() != '' && $('#password').val() == $('#repeat_password').val()) {
+            return true
+        }
+        else return false;
+    }
+    function setupEnterEvent(id) {
+        document.getElementById(id).addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {  // Sử dụng 'Enter' thay vì mã keyCode
+                register();
+            }
+        });
+    }
+    setupEnterEvent('user_name');
+    setupEnterEvent('password');
+    setupEnterEvent('repeat_password');
+</script>
+
+</html>

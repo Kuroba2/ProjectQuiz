@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống thi trắc nghiệm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Stylesheet/style.css">
+    <link rel="stylesheet" href="/Stylesheet/font.css">
+    <link rel="stylesheet" href="/Stylesheet/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" />
+
+</head>
+
+<body style="background-color: #f6f8fa;">
+    <nav class="navbar navbar-expand-lg py-1" style="background-color: #bb2019;">
+        <div class="container">
+            <a class="navbar-brand f-f-BeVietNam-SemiBold f-s-20 text-white me-0" href="/views/index.html">
+                <img class=" p-1 px-2" src="/Image/Home/ptit-logo.png" alt=""
+                    style="width: 40%; background-color: #fff; border-radius: 50%;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 f-f-BeVietNam-Medium">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/views/index.html">Trang chủ</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-white nav-admin" href="/views/admin_dashboard.html">Quản lý kì thi</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Quản lý tài khoản</a>
+                    </li> -->
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-white nav-admin" href="#">Thống kê</a>
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Thống kê
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                <div class="d-flex gap-2">
+                    <button class="btn px-3 py-2 bg-white f-s-16 f-f-BeVietNam-Medium" onclick="login()">
+                        Đăng xuất
+                    </button>
+                    <!-- <button class="btn px-3 py-2 bg-white f-s-16 f-f-BeVietNam-Medium" onclick="register()">
+                        Đăng ký
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <div class="container mt-4 py-4" style="background-color: #fff; border: 2px solid #e1e4e8;">
+            <div class="row justify-content-center px-4">
+                <div class="col-12 f-s-24 f-f-BeVietNam-Bold">
+                    Danh sách các kì thi
+                </div>
+            </div>
+            <div class="row px-4">
+                <div class="col-12">
+                    <table id="table_exam" class="table table-striped f-f-BeVietNam-Regular" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Tên kì thi</th>
+                                <th style="width: 15%;">Môn học</th>
+                                <th>Thể loại</th>
+                                <th class="pe-2">Lớp</th>
+                                <th class="pe-2">Thời gian làm bài</th>
+                                <th class="pe-2">Thời gian bắt đầu</th>
+                                <th>Trạng thái</th>
+                                <th>Làm bài</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataExam">
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+</body>
+<script>
+    function login() {
+        window.location.href = 'login.html';
+    }
+    function register() {
+        window.location.href = 'register.html';
+    }
+    const generateId = () => {
+        const timestamp = new Date().getTime();
+        const randomNumber = Math.floor(Math.random() * 10000);
+        const id = `${timestamp}${randomNumber}`;
+        return id;
+    };
+
+    const newId = generateId();
+    console.log(newId);
+    const data_exam = [
+        {
+            "name_exam": "Giữa kì 1",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 1,
+            "time_exam": 120,
+            "time_start": "8h/ 02-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Giữa kì 1",
+            "subject": "Văn",
+            "type": "Tự luận",
+            "class": 1,
+            "time_exam": 180,
+            "time_start": "9h/ 03-03-2023",
+            "status": 1
+        },
+        {
+            "name_exam": "Giữa kì 1",
+            "subject": "Khoa học",
+            "type": "Trắc nghiệm",
+            "class": 2,
+            "time_exam": 90,
+            "time_start": "10h/ 04-03-2023",
+            "status": 2
+        },
+        {
+            "name_exam": "Cuối kì 1",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 3,
+            "time_exam": 120,
+            "time_start": "14h/ 05-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 1",
+            "subject": "Văn",
+            "type": "Tự luận",
+            "class": 4,
+            "time_exam": 180,
+            "time_start": "8h/ 06-03-2023",
+            "status": 1
+        },
+        {
+            "name_exam": "Cuối kì 1",
+            "subject": "Khoa học",
+            "type": "Trắc nghiệm",
+            "class": 5,
+            "time_exam": 90,
+            "time_start": "9h/ 07-03-2023",
+            "status": 2
+        },
+        {
+            "name_exam": "Giữa kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 6,
+            "time_exam": 120,
+            "time_start": "10h/ 08-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Giữa kì 2",
+            "subject": "Văn",
+            "type": "Tự luận",
+            "class": 7,
+            "time_exam": 180,
+            "time_start": "14h/ 09-03-2023",
+            "status": 1
+        },
+        {
+            "name_exam": "Giữa kì 2",
+            "subject": "Khoa học",
+            "type": "Trắc nghiệm",
+            "class": 8,
+            "time_exam": 90,
+            "time_start": "8h/ 10-03-2023",
+            "status": 2
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        ,
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        },
+        {
+            "name_exam": "Cuối kì 2",
+            "subject": "Toán",
+            "type": "Trắc nghiệm",
+            "class": 9,
+            "time_exam": 120,
+            "time_start": "9h/ 11-03-2023",
+            "status": 0
+        }
+        // Các phần tử tiếp theo...
+    ];
+    console.log(data_exam);
+    function getStatusExam(status) {
+        if (status == 0) return "Chưa bắt đầu"
+        else if (status == 1) return "Đang diễn ra"
+        else return "Đã kết thúc"
+    }
+    function getContentButton(status) {
+        if (status == 0) return "Bắt đầu"
+        else if (status == 1) return "Bắt đầu"
+        else return "Kết quả"
+    }
+    function getColorButton(status) {
+        if (status == 0) return "success"
+        else if (status == 1) return "danger"
+        else return "warning"
+    }
+    function getDataExam(data) {
+        var html = ''
+
+        data.forEach((element, index) => {
+            var time_exam = element.time_start.split(" ")[0];
+            var date_exam = element.time_start.split(" ")[1];
+            html += `
+            <tr class="align-middle">
+                                <td>${element.name_exam}</td>
+                                <td>${element.subject}</td>
+                                <td>${element.type}</td>
+                                <td>Lớp ${element.class}</td>
+                                <td><span class="f-f-BeVietNam-Bold">${element.time_exam} phút</span></td>
+                                <td>
+                                    <span class="f-f-BeVietNam-Bold">${time_exam}</span>
+                                  ${date_exam}
+                                </td>
+                                <td>${getStatusExam(element.status)}</td>
+                                <td>
+                                    <button class="btn btn-${getColorButton(element.status)} px-2 py-1 text-white" onclick="startExam(${element.status})">${getContentButton(element.status)}</button>
+                                </td>
+                            </tr>
+            `
+        })
+        $('#dataExam').html(html)
+    }
+    getDataExam(data_exam)
+    function startExam(status) {
+        if (status == 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Bài kiểm tra chưa mở",
+                text: "Vui lòng đợi đến thời gian làm bài",
+
+            });
+        }
+        else if (status == 1) {
+            window.location.href = 'exam.html'
+        }
+        else {
+            window.location.href = 'result-exam.html'
+        }
+    }
+    new DataTable('#table_exam');
+</script>
+
+</html>

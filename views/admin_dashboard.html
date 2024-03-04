@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Kỳ Thi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Stylesheet/style.css">
+    <link rel="stylesheet" href="/Stylesheet/font.css">
+    <style>
+        /* Style cho form */
+        /* form {
+            margin-bottom: 20px;
+        } */
+        /* 
+        label {
+            display: block;
+            margin-bottom: 5px;
+        } */
+
+        /* input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        } */
+
+        button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style cho danh sách người dùng */
+        #userList {
+            margin-top: 20px;
+        }
+
+        #userItems {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #userItems li {
+            margin-bottom: 5px;
+        }
+
+        #examItems li {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .button-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .button-group button {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f6f8fa;">
+    <nav class="navbar navbar-expand-lg py-1" style="background-color: #bb2019;">
+        <div class="container">
+            <a class="navbar-brand f-f-BeVietNam-SemiBold f-s-20 text-white me-0">
+                <img class=" p-1 px-2" src="/Image/Home/ptit-logo.png" alt=""
+                    style="width: 40%; background-color: #fff; border-radius: 50%;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 f-f-BeVietNam-Medium">
+                    <!-- <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/views/index.html">Trang chủ</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/views/admin_dashboard.html">Quản lý kì thi</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Quản lý tài khoản</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Thống kê</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Thống kê
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li> -->
+
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                <div class="d-flex gap-2">
+                    <button class="btn px-3 py-2 bg-white f-s-16 f-f-BeVietNam-Medium" onclick="login()">
+                        Đăng xuất
+                    </button>
+                    <!-- <button class="btn px-3 py-2 bg-white f-s-16 f-f-BeVietNam-Medium" onclick="register()">
+                        Đăng ký
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="row justify-content-center px-4" style="background-color: #fff; border: 2px solid #e1e4e8;">
+            <div class="col-auto f-s-24 f-f-BeVietNam-SemiBold mt-4">
+                Quản Lý Kỳ Thi
+            </div>
+            <div class="col-12">
+
+                <!-- Form thêm mới kỳ thi -->
+                <form id="addExamForm">
+                    <div class="f-f-BeVietNam-Bold f-s-20">Tạo kì thi</div>
+                    <div class="d-flex mt-4 align-items-center justify-content-center">
+                        <label class="form-label f-s-18 f-f-BeVietNam-Medium mb-0" for="examName"
+                            style="width: 15%;">Tên Kỳ
+                            Thi:</label>
+                        <input class="form-control" type="text" id="examName" name="examName" required>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center mt-4">
+                        <label class="form-label f-s-18 f-f-BeVietNam-Medium mb-0" for="examDate"
+                            style="width: 15%;">Ngày Thi:</label>
+                        <input class="form-control" type="date" id="examDate" name="examDate" required>
+                    </div>
+                    <button class="d-flex mx-auto btn btn-primary mt-4" type="submit">Thêm Mới</button>
+                </form>
+                <!-- Danh sách kỳ thi -->
+                <div id="examList">
+                    <div class="f-f-BeVietNam-SemiBold f-s-20 text_list_exam mt-4">Danh Sách Kỳ Thi</div>
+                    <ul id="examItems"></ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</body>
+<script>
+
+    // Khai báo danh sách kỳ thi
+    let exams = [];
+
+    // Hàm hiển thị danh sách kỳ thi
+    function displayExams() {
+        if (exams.length == 0) {
+            $('.text_list_exam').css('display', 'none');
+        }
+        else {
+            $('.text_list_exam').css('display', 'block');
+        }
+        const examItems = document.getElementById('examItems');
+
+        examItems.innerHTML = '';
+        exams.forEach((exam, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${index + 1}. ${exam.name} - Ngày Thi: ${exam.date}`;
+
+            // Tạo button chỉnh sửa kỳ thi
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Đổi Tên';
+            editButton.addEventListener('click', () => {
+                const newName = prompt('Nhập tên mới cho kỳ thi:', exam.name);
+                if (newName !== null) {
+                    exams[index].name = newName;
+                    displayExams();
+                }
+            });
+            li.appendChild(editButton);
+
+            // Tạo nút xem danh sách sinh viên
+            const viewStudentsButton = document.createElement('button');
+            viewStudentsButton.textContent = 'Danh Sách Sinh Viên';
+            viewStudentsButton.addEventListener('click', () => {
+                // Chuyển hướng đến trang student_list.html và truyền tham số kỳ thi
+                window.location.href = `student_list.html?examId=${index}&examName=${encodeURIComponent(exam.name)}`;
+            });
+            li.appendChild(viewStudentsButton);
+
+            examItems.appendChild(li);
+
+            // Tạo nút thêm câu hỏi
+            const addQuestionButton = document.createElement('button');
+            addQuestionButton.textContent = 'Câu Hỏi Thi';
+            addQuestionButton.addEventListener('click', () => {
+                // Chuyển hướng đến trang tạo/chỉnh sửa kỳ thi và truyền tham số kỳ thi
+                window.location.href = `create_exam.html?examId=${index}&examName=${encodeURIComponent(exam.name)}`;
+            });
+            li.appendChild(addQuestionButton);
+
+            // Tạo nút thống kê
+            const viewStatsButton = document.createElement('button');
+            viewStatsButton.textContent = 'Thống Kê';
+            viewStatsButton.addEventListener('click', () => {
+                // Chuyển hướng đến trang statistics.html và truyền tham số kỳ thi
+                window.location.href = `statistics.html?examId=${index}&examName=${encodeURIComponent(exam.name)}`;
+            });
+            li.appendChild(viewStatsButton);
+
+            // Tạo button xóa kỳ thi
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Xóa Kỳ Thi';
+            deleteButton.addEventListener('click', () => {
+                alert('Bạn có xác nhận xóa kì thi')
+                exams.splice(index, 1);
+                displayExams();
+                saveExamsToLocalStorage();
+            });
+            li.appendChild(deleteButton);
+        });
+    }
+
+    // Xử lý sự kiện submit form thêm mới kỳ thi
+    document.getElementById('addExamForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const examName = document.getElementById('examName').value;
+        const examDate = document.getElementById('examDate').value;
+        exams.push({ name: examName, date: examDate, users: [] });
+        displayExams();
+
+        localStorage.setItem('exams', JSON.stringify(exams));
+        this.reset();
+    });
+
+    function saveExamsToLocalStorage() {
+        localStorage.setItem('exams', JSON.stringify(exams));
+    }
+    window.onload = function () {
+        const storedExams = localStorage.getItem('exams');
+        if (storedExams) {
+            exams = JSON.parse(storedExams);
+            displayExams();
+        }
+    };
+    function login() {
+        window.location.href = 'login.html';
+    }
+</script>
+
+</html>

@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(194, 10, 10, 0.1);
+}
+
+h1 {
+  color: #d32f2f;
+  text-align: center;
+}
+
+.result {
+  margin-top: 20px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  height: 80%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+#answerTable {
+  max-height: 150px; /* Đặt chiều cao tối đa của bảng */
+  overflow-y: auto; /* Hiển thị thanh cuộn dọc khi bảng quá dài */
+}
+th,
+td {
+  border: 1px solid #d31a1a;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #d32f2f; /* Màu nền cho header */
+  color: #fff; /* Màu chữ cho header */
+}
+
+td {
+  background-color: #ffcccc; /* Màu nền cho các ô dữ liệu (màu đỏ) */
+}
+
+.background-image {
+  background-image: url("https://navigates.vn/wp-content/uploads/2023/04/co-so-vat-chat-hoc-vien-cong-nghe-buu-chinh-vien-thong-1.jpg"); /* Đường dẫn tới hình ảnh của bạn */
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  background-repeat: repeat;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 1); /* Màu nền với độ mờ 80% */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Đảm bảo sử dụng position relative */
+  z-index: 1; /* Đặt z-index cao hơn nền */
+}
+.exit-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.exit-button button {
+  background-color: #d32f2f;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.exit-button button:hover {
+  background-color: #b71c1c;
+}

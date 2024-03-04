@@ -1,0 +1,18 @@
+.nav-link:hover {
+  opacity: 0.8;
+}
+.nav-link {
+  font-size: 16px;
+}
+.dt-length {
+  display: none;
+}
+.dt-column-order {
+  display: none;
+}
+.dt-info {
+  display: none;
+}
+.table {
+  align-items: center;
+}

@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+* {
+  color: #000;
+}
+
+.f-s-10 {
+  font-size: 10px;
+}
+
+.f-s-12 {
+  font-size: 12px;
+}
+
+.f-s-14 {
+  font-size: 14px;
+}
+
+.f-s-16 {
+  font-size: 16px;
+}
+
+.f-s-18 {
+  font-size: 18px;
+}
+
+.f-s-20 {
+  font-size: 20px;
+}
+
+.f-s-22 {
+  font-size: 22px;
+}
+
+.f-s-24 {
+  font-size: 24px;
+}
+
+.f-s-28 {
+  font-size: 28px;
+}
+.f-s-30 {
+  font-size: 30px;
+}
+.f-s-32 {
+  font-size: 32px;
+}
+.f-s-40 {
+  font-size: 40px;
+}

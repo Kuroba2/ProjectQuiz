@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Thi</title>
+    <link rel="stylesheet" href="/Stylesheet/result-exam.css">
+</head>
+
+<body>
+    <div class="background-image">
+        <div class="container">
+            <h1>Kết Quả Thi</h1>
+            <div class="result">
+                <p>Số câu trả lời đúng: <span id="correctAnswers">30</span></p>
+                <p>Tổng số câu: <span id="totalQuestions">40</span></p>
+                <p>Điểm số: <span id="score">7.5</span></p>
+            </div>
+            <div class="answer-details">
+                <h2>Câu Trả Lời Chi Tiết</h2>
+                <table>
+                    <tr>
+                        <th>Câu</th>
+                        <th style="width: 40%;">Câu Trả Lời</th>
+                        <th style="width: 40%;">Đáp Án Đúng</th>
+                    </tr>
+                    <tbody id="answerTable">
+                        <tr>
+                            <td style="width: 10%;">1</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">2</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">3</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">4</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">5</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">6</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">7</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">8</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">9</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">10</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">11</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">C</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">12</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">13</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">14</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">15</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">16</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">17</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">C</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">18</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">B</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">19</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">20</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">A</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">21</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">B D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">22</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">23</td>
+                            <td style="width: 40% !important;">A</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">24</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A B C</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">25</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">26</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">27</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">28</td>
+                            <td style="width: 40% !important;">B</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">29</td>
+                            <td style="width: 40% !important;">D</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">30</td>
+                            <td style="width: 40% !important;">C</td>
+                            <td style="width: 50%;">A B C D</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">31</td>
+                            <td style="width: 40% !important;">Tài nguyên máy tính</td>
+                            <td style="width: 50%;">Hệ điều hành là phần mềm quản lý và điều khiển tài nguyên của máy
+                                tính.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">32</td>
+                            <td style="width: 40% !important;">Phần mềm đọc hại</td>
+                            <td style="width: 50%;">Phần mềm diệt virus giúp phát hiện, ngăn chặn và loại bỏ các phần
+                                mềm độc hại và virus khỏi máy tính.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">33</td>
+                            <td style="width: 40% !important;">Mạng</td>
+                            <td style="width: 50%;">Mạng LAN (Local Area Network) là một mạng máy tính cục bộ trong một
+                                khu vực nhỏ, như trong một văn phòng hoặc một tòa nhà. Nó cung cấp khả năng chia sẻ tài
+                                nguyên, truyền thông giữa các thiết bị và dễ dàng quản lý mạng trong phạm vi hạn chế.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">34</td>
+                            <td style="width: 40% !important;">Định danh</td>
+                            <td style="width: 50%;">Địa chỉ IP (Internet Protocol Address) là một định danh duy nhất cho
+                                các thiết bị kết nối vào mạng internet. Nó giúp xác định vị trí và giao tiếp giữa các
+                                thiết bị trong mạng máy tính.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">35</td>
+                            <td style="width: 40% !important;">Lưu trữ</td>
+                            <td style="width: 50%;">Cloud computing là một mô hình cung cấp tài nguyên và dịch vụ máy
+                                tính thông qua internet. Một số ưu điểm của cloud computing bao gồm tiết kiệm chi phí,
+                                linh hoạt và mở rộng, dễ dàng truy cập từ xa và khả năng sao lưu và khôi phục dữ liệu.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">36</td>
+                            <td style="width: 40% !important;">Tính toán</td>
+                            <td style="width: 50%;">Phần mềm Microsoft Excel được sử dụng để tạo, sắp xếp và tính toán
+                                các bảng tính. Nó cung cấp tính năng công thức tính toán phức tạp, định dạng dữ liệu và
+                                khả năng tạo biểu đồ để hiển thị dữ liệu một cách trực quan.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">37</td>
+                            <td style="width: 40% !important;">Truyền dữ liệu trên web</td>
+                            <td style="width: 50%;">HTTP (Hypertext Transfer Protocol) là một giao thức truyền tải dữ
+                                liệu trên web. Khi một trình duyệt web yêu cầu một trang web, nó gửi yêu cầu HTTP đến
+                                máy chủ web và sau đó nhận lại các phản hồi HTTP chứa dữ liệu trang web được yêu cầu.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">38</td>
+                            <td style="width: 40% !important;">Chính phủ</td>
+                            <td style="width: 50%;">Tên miền website .gov đại diện cho các tổ chức chính phủ.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">39</td>
+                            <td style="width: 40% !important;">Lưu trữ và truyền thông tin</td>
+                            <td style="width: 50%;">Blockchain là một công nghệ lưu trữ và truyền thông tin một cách an
+                                toàn và minh bạch. Nó được sử dụng trong nhiều lĩnh vực như tài chính, chuỗi cung ứng,
+                                bảo hiểm và quản lý dữ liệu, để tăng tính bảo mật, đáng tin cậy và giảm thiểu sự phụ
+                                thuộc vào bên trung gian.</td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 10%;">40</td>
+                            <td style="width: 40% !important;">Chỉnh sửa ảnh</td>
+                            <td style="width: 50%;">Phần mềm Adobe Photoshop được sử dụng để chỉnh sửa và xử lý hình
+                                ảnh. Nó cung cấp các công cụ mạnh mẽ để điều chỉnh màu sắc, cắt ghép, làm mờ và tạo hiệu
+                                ứng đặc biệt trên hình ảnh. Một tính năng đặc biệt của Photoshop là khả năng làm việc
+                                với các lớp, cho phép tạo ra các hiệu ứng và thiết kế phức tạp.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="exit-button">
+            <button onclick="exitPage()">Thoát</button>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+    function getAnswer() {
+        return JSON.parse(localStorage.getItem('answers'));
+    }
+    function getDataQuestion() {
+        return JSON.parse(localStorage.getItem('dataQuestion'));
+    }
+    function getAnswered() {
+        let answers = getAnswer();
+        let questions = getDataQuestion();
+
+        answers.forEach((element) => {
+            questions[element.questionIndex].answered = element.answerIndex;
+
+        });
+
+        return questions;
+    }
+    // getAnswered()
+    function getcountScore() {
+        var score = 0;
+        getAnswered().forEach((element) => {
+            if (element.answered == element.answer) {
+                score += 10 / getAnswered().length
+            }
+        })
+        return score
+    }
+    function getCountCorrectAnswer() {
+        var count = 0;
+        getAnswered().forEach((element) => {
+            console.log(element.answered + '/' + element.answer);
+            if (element.answered == element.answer) {
+                count += 1
+            }
+        })
+        return count
+    }
+    function convertAnswer(answer) {
+        const mapping = {
+            0: 'A',
+            1: 'B',
+            2: 'C',
+            3: 'D'
+        };
+
+        if (Array.isArray(answer)) {
+            return answer.map(item => mapping[item]).join(' ');
+        } else {
+            if (answer in mapping) {
+                return mapping[answer];
+            } else {
+                return answer;
+            }
+        }
+    }
+
+    var resultData = {
+        correctAnswers: getCountCorrectAnswer(),
+        totalQuestions: getDataQuestion().length,
+        score: getcountScore(),
+        answerDetails: getAnswered()
+    };
+    // console.log(resultData);
+    document.getElementById('correctAnswers').innerText = resultData.correctAnswers;
+    document.getElementById('totalQuestions').innerText = resultData.totalQuestions;
+    document.getElementById('score').innerText = resultData.score;
+
+    function getResult() {
+        var html = ''
+        resultData.answerDetails.forEach((element, index) => {
+            // console.log(element.answered);
+            html += `
+                <tr>
+                    <td style="width: 10%;">${index + 1}</td>
+                    <td style="width: 40% !important;">${convertAnswer(element.answered)}</td>
+                    <td style="width: 50%;">${convertAnswer(element.answer)}</td>
+                </tr>
+                `
+            // var row = table.insertRow();
+            // row.insertCell(0).innerText = index + 1;
+            // row.insertCell(1).innerText = convertAnswer(element.answered);
+            // row.insertCell(2).innerText = convertAnswer(element.answer);
+        });
+        $('#answerTable').html(html)
+    }
+    getResult()
+
+
+    function exitPage() {
+        // Thực hiện hành động thoát ở đây
+        window.location.href = 'index.html';
+        // Thay console.log() bằng mã JavaScript để thực hiện hành động thoát khỏi trang
+    }
+
+</script>
+
+</html>

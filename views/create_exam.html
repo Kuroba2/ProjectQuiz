@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chỉnh sửa Kỳ thi</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    h2 {
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input[type="text"], input[type="number"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    ul {
+        padding: 0;
+    }
+    li {
+        list-style-type: none;
+        margin-bottom: 10px;
+    }
+    .correct-answer {
+        color: red;
+        font-weight: bold;
+    }
+    .question-item span {
+    font-size: 18px; 
+    }
+    .question-item ul li {
+        font-size: 14px; 
+    }
+</style>
+</head>
+
+<body>
+<div class="container">    
+<h2>Chỉnh sửa Kỳ thi</h2>
+
+<!-- Form nhập thông tin kỳ thi -->
+<form id="examForm">
+    <label for="question">Câu Hỏi:</label>
+    <input type="text" id="question" name="question">
+    <label for="option1">Phương Án 1:</label>
+    <input type="text" id="option1" name="option1">
+    <label for="option2">Phương Án 2:</label>
+    <input type="text" id="option2" name="option2">
+    <label for="option3">Phương Án 3:</label>
+    <input type="text" id="option3" name="option3">
+    <label for="option4">Phương Án 4:</label>
+    <input type="text" id="option4" name="option4">
+    <label for="correctAnswer">Phương Án Trả Lời Đúng:</label>
+    <select id="correctAnswer" name="correctAnswer">
+        <option value="option1">Phương Án 1</option>
+        <option value="option2">Phương Án 2</option>
+        <option value="option3">Phương Án 3</option>
+        <option value="option4">Phương Án 4</option>
+    </select>
+    <button type="button" onclick="addQuestion()">Thêm Câu Hỏi</button>
+</form>
+
+<!-- Danh sách câu hỏi -->
+<div id="questionList">
+    <h3>Danh Sách Câu Hỏi</h3>
+    <ul id="questionItems"></ul>
+</div>
+
+<!-- Button để nộp file câu hỏi Excel -->
+<input type="file" id="fileInput">
+<button onclick="handleFile()">Thêm Câu Hỏi từ File Excel</button>
+
+<!-- Nút xác nhận -->
+<button id="confirmButton">Xác Nhận</button>
+</div>
+
+<script>
+    let questions = []; 
+
+    // Hàm để hiển thị danh sách câu hỏi
+    function displayQuestions() {
+        const questionItems = document.getElementById('questionItems');
+        questionItems.innerHTML = '';
+        questions.forEach((question, index) => {
+            const div = document.createElement('div');
+            div.classList.add('question-item');
+
+            const questionContent = document.createElement('span');
+            questionContent.textContent = `${index + 1}. ${question.content}`;
+            div.appendChild(questionContent);
+
+            const optionsList = document.createElement('ul');
+            question.options.forEach((option, optionIndex) => {
+                const optionItem = document.createElement('li');
+                optionItem.textContent = `${String.fromCharCode(65 + optionIndex)}. ${option}`;
+                if (optionIndex === question.correctIndex) {
+                    optionItem.classList.add('correct-answer');
+                }
+                optionsList.appendChild(optionItem);
+            });
+            div.appendChild(optionsList);
+
+            // Thêm nút xóa câu hỏi
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Xóa';
+            deleteButton.addEventListener('click', () => {
+                if (confirm('Bạn có chắc muốn xóa câu hỏi này?')) {
+                    deleteQuestion(index);
+                }
+            });
+            div.appendChild(deleteButton);
+
+            questionItems.appendChild(div);
+        });
+    }
+
+    // Hàm để thêm câu hỏi mới
+    function addQuestion() {
+        const question = document.getElementById('question').value;
+        const option1 = document.getElementById('option1').value;
+        const option2 = document.getElementById('option2').value;
+        const option3 = document.getElementById('option3').value;
+        const option4 = document.getElementById('option4').value;
+        const correctAnswer = document.getElementById('correctAnswer').value;
+
+        if (question && option1 && option2 && option3 && option4) {
+            const newQuestion = {
+                content: question,
+                options: [option1, option2, option3, option4],
+                correctIndex: ['option1', 'option2', 'option3', 'option4'].indexOf(correctAnswer)
+            };
+            questions.push(newQuestion);
+            displayQuestions();
+            document.getElementById('examForm').reset();
+        } else {
+            alert('Vui lòng điền đầy đủ thông tin cho câu hỏi và các phương án trả lời.');
+        }
+    }
+
+    // Hàm để xử lý sự kiện khi người dùng chọn file Excel
+    function handleFile() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                const data = event.target.result;
+                // Xử lý dữ liệu từ file Excel ở đây
+                console.log(data); // In ra dữ liệu từ file Excel để kiểm tra
+            };
+            
+            reader.readAsBinaryString(file);
+        } else {
+            alert('Vui lòng chọn một file Excel.');
+        }
+    }
+
+    // Hàm để kiểm tra và hiển thị input thời gian nếu loại kỳ thi là 'Thời Gian Cụ Thể'
+    function toggleTimeInput() {
+        const examType = document.getElementById('examType').value;
+        const timeInput = document.getElementById('timeInput');
+        if (examType === 'thoi-gian') {
+            timeInput.style.display = 'block';
+        } else {
+            timeInput.style.display = 'none';
+        }
+    }
+
+    // Xử lý sự kiện click nút xác nhận
+    document.getElementById('confirmButton').addEventListener('click', function() {
+        window.location.href = 'admin_dashboard.html';
+    });
+
+    function saveQuestionsToLocalStorage() {
+        localStorage.setItem('questions', JSON.stringify(questions));
+    }
+
+    function loadQuestionsFromLocalStorage() {
+        const savedQuestions = localStorage.getItem('questions');
+        if (savedQuestions) {
+            questions = JSON.parse(savedQuestions);
+            displayQuestions();
+        }
+    }
+
+    // Hàm để xóa câu hỏi
+    function deleteQuestion(index) {
+        questions.splice(index, 1);
+        displayQuestions();
+    }
+
+    // Gọi hàm loadQuestionsFromLocalStorage khi trang được tải
+    window.onload = function() {
+        loadQuestionsFromLocalStorage();
+    };
+
+    // Gọi hàm saveQuestionsToLocalStorage khi danh sách câu hỏi thay đổi
+    window.onbeforeunload = function() {
+        saveQuestionsToLocalStorage();
+};
+</script>
+</body>
+</html>
+

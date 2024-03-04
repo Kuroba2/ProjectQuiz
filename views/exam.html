@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống thi trắc nghiệm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Stylesheet/style.css">
+    <link rel="stylesheet" href="/Stylesheet/font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+
+<body style="background-color:#b54944;">
+
+    <section>
+        <div class="container">
+            <div class="row justify-content-center align-items-center mt-5">
+                <div class="col-8 p-4" style="border: 2px solid #e7e7e7; border-radius: 15px; background-color: #fff;">
+                    <div class="f-s-24 f-f-BeVietNam-SemiBold  text-center">
+                        Trả lời các câu hỏi sau
+                    </div>
+                    <div id="countdown" class="d-flex justify-content-end f-s-24 f-f-BeVietNam-Bold">00:10</div>
+                    <!-- <div class="d-flex align-items-center gap-2 answer">
+                        <div class=" px-3 f-s-18 f-f-BeVietNam-SemiBold"
+                            style="border: 2px solid #e7e7e7; border-radius: 5px; color: red;"> Sai
+                        </div>
+                        <div class="f-s-18 f-f-BeVietNam-SemiBold">B là đáp án đúng</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 answer">
+                        <div class=" px-3 f-s-18 f-f-BeVietNam-SemiBold"
+                            style="border: 2px solid #e7e7e7; border-radius: 5px; color: #13b795;"> Chính xác
+                        </div>
+                    </div> -->
+                    <div class="mt-4 quiz">
+                    </div>
+                    <div class="d-flex">
+                        <button class="mx-auto text-white py-2 px-4 mt-3 f-s-18 justify-content-center"
+                            onclick="submit()"
+                            style="border: none; outline: none; border-radius: 9px; background-color: #5381F8;">Nộp bài
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script>
+
+        // type  0: Đúng sai
+        // type  1: Chọn 1
+        // type  2: Chọn nhiều
+        // type  3: Tự luận
+
+
+        const dataQuestion = [
+            {
+                question: "Hệ điều hành là chương trình hoạt động sử dụng với:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Phần mềm diệt virus giúp bảo vệ máy tính khỏi các mối đe dọa:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Mạng LAN là mạng kết nối máy tính trong một khu vực nhỏ:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Địa chỉ IP là địa chỉ vật lý của máy tính:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Công nghệ 'cloud computing' liên quan đến lưu trữ dữ liệu trực tuyến:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Phần mềm Microsoft Excel là phần mềm văn phòng:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Giao thức HTTP được sử dụng trong việc truyền tải dữ liệu qua mạng Internet:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Tên miền website .gov đại diện cho tổ chức phi lợi nhuận:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Công nghệ 'blockchain' được sử dụng trong lĩnh vực y tế:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Phần mềm Adobe Photoshop là phần mềm chỉnh sửa ảnh:",
+                options: ["Đúng", "Sai"],
+                type: 0,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Hệ điều hành là gì?",
+                options: ["A. Phần cứng của máy tính", "B. Trình duyệt web", "C. Chương trình điều khiển hệ thống", "D. Máy chủ"],
+                type: 1,
+                answer: 2,
+                answered: ''
+            },
+            {
+                question: "Địa chỉ IP là gì?",
+                options: ["A. Địa chỉ vật lý của máy tính", "B. Tên miền website", "C. Địa chỉ truy cập Internet", "D. Địa chỉ mạng của máy tính"],
+                type: 1,
+                answer: 3,
+                answered: ''
+            },
+            {
+                question: "Phần mềm diệt virus là gì?",
+                options: ["A. Phần mềm giúp tạo virus", "B. Phần mềm bảo vệ máy tính khỏi virus", "C. Phần mềm chỉnh sửa ảnh", "D. Phần mềm quản lý tập tin"],
+                type: 1,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Công nghệ 'cloud computing' là gì?",
+                options: ["A. Công nghệ lưu trữ dữ liệu trực tuyến", "B. Công nghệ in 3D", "C. Công nghệ truyền thông không dây", "D. Công nghệ nhận dạng khuôn mặt"],
+                type: 1,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Mạng LAN là gì?",
+                options: ["A. Mạng kết nối trong một khu vực nhỏ", "B. Mạng kết nối toàn cầu", "C. Mạng không dây", "D. Mạng kết nối máy tính với máy chủ"],
+                type: 1,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Định dạng file âm thanh phổ biến nhất là gì?",
+                options: ["A. MP3", "B. WAV", "C. AVI", "D. GIF"],
+                type: 1,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Giao thức truyền tải dữ liệu thông qua mạng Internet là gì?",
+                options: ["A. HTTP", "B. FTP", "C. TCP/IP", "D. SMTP"],
+                type: 1,
+                answer: 2,
+                answered: ''
+            },
+            {
+                question: "Phần mềm Microsoft Word thuộc loại phần mềm nào?",
+                options: ["A. Trình duyệt web", "B. Phần mềm văn phòng", "C. Phần mềm thiết kế đồ họa", "D. Hệ điều hành"],
+                type: 1,
+                answer: 1,
+                answered: ''
+            },
+            {
+                question: "Tên miền website .com đại diện cho loại nội dung nào?",
+                options: ["A. Tổ chức phi lợi nhuận", "B. Trường học", "C. Cơ quan chính phủ", "D. Thương mại"],
+                type: 1,
+                answer: 3,
+                answered: ''
+            },
+            {
+                question: "Công nghệ 'blockchain' được sử dụng trong lĩnh vực nào?",
+                options: ["A. Tài chính và ngân hàng", "B. Y tế", "C. Giáo dục", "D. Giao thông vận tải"],
+                type: 1,
+                answer: 0,
+                answered: ''
+            },
+            {
+                question: "Hệ điều hành là chương trình hoạt động sử dụng với:",
+                options: ["Lựa chọn A", "Lựa chọn B", "Lựa chọn C", "Lựa chọn D"],
+                type: 2,
+                answer: [1, 3],
+                answered: ''
+            },
+            {
+                question: "Giao thức truyền tải dữ liệu thông qua mạng Internet bao gồm:",
+                options: ["A. HTTP", "B. FTP", "C. TCP/IP", "D. SMTP"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các ngôn ngữ lập trình phổ biến bao gồm:",
+                options: ["A. Java", "B. Python", "C. C++", "D. JavaScript"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các công nghệ lưu trữ dữ liệu trực tuyến bao gồm:",
+                options: ["A. Cloud computing", "B. Database", "C. Big data", "D. Virtualization"],
+                type: 2,
+                answer: [0, 1, 2],
+                answered: ''
+            },
+            {
+                question: "Các loại mạng không dây bao gồm:",
+                options: ["A. Wi-Fi", "B. Bluetooth", "C. NFC", "D. 4G"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các công nghệ trong lĩnh vực trí tuệ nhân tạo bao gồm:",
+                options: ["A. Machine learning", "B. Computer vision", "C. Natural language processing", "D. Robotics"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các loại ứng dụng di động bao gồm:",
+                options: ["A. Trò chơi", "B. Mạng xã hội", "C. Đọc tin tức", "D. Giao diện người dùng"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các thành phần của một trang web bao gồm:",
+                options: ["A. HTML", "B. CSS", "C. JavaScript", "D. Database"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các loại hình bảo mật thông tin bao gồm:",
+                options: ["A. Mã hóa", "B. Chứng thực", "C. Phân quyền truy cập", "D. Kiểm tra dư thừa"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Các loại hình công nghệ đám mây bao gồm:",
+                options: ["A. Infrastructure as a Service (IaaS)", "B. Platform as a Service (PaaS)", "C. Software as a Service (SaaS)", "D. Network as a Service (NaaS)"],
+                type: 2,
+                answer: [0, 1, 2, 3],
+                answered: ''
+            },
+            {
+                question: "Hệ điều hành là chương trình hoạt động sử dụng với:",
+                type: 3,
+                answer: "Hệ điều hành là phần mềm quản lý và điều khiển tài nguyên của máy tính.",
+                answered: ''
+            },
+            {
+                question: "Phần mềm diệt virus giúp bảo vệ máy tính khỏi các mối đe dọa là gì?",
+                type: 3,
+                answer: "Phần mềm diệt virus giúp phát hiện, ngăn chặn và loại bỏ các phần mềm độc hại và virus khỏi máy tính.",
+                answered: ''
+            },
+            {
+                question: "Mạng LAN là gì và cung cấp những lợi ích gì?",
+                type: 3,
+                answer: "Mạng LAN (Local Area Network) là một mạng máy tính cục bộ trong một khu vực nhỏ, như trong một văn phòng hoặc một tòa nhà. Nó cung cấp khả năng chia sẻ tài nguyên, truyền thông giữa các thiết bị và dễ dàng quản lý mạng trong phạm vi hạn chế.",
+                answered: ''
+            },
+            {
+                question: "Địa chỉ IP là gì và có vai trò gì trong mạng máy tính?",
+                type: 3,
+                answer: "Địa chỉ IP (Internet Protocol Address) là một định danh duy nhất cho các thiết bị kết nối vào mạng internet. Nó giúp xác định vị trí và giao tiếp giữa các thiết bị trong mạng máy tính.",
+                answered: ''
+            },
+            {
+                question: "Cloud computing là gì và những ưu điểm của nó là gì?",
+                type: 3,
+                answer: "Cloud computing là một mô hình cung cấp tài nguyên và dịch vụ máy tính thông qua internet. Một số ưu điểm của cloud computing bao gồm tiết kiệm chi phí, linh hoạt và mở rộng, dễ dàng truy cập từ xa và khả năng sao lưu và khôi phục dữ liệu.",
+                answered: ''
+            },
+            {
+                question: "Phần mềm Microsoft Excel được sử dụng cho mục đích gì và có tính năng nổi bật nào?",
+                type: 3,
+                answer: "Phần mềm Microsoft Excel được sử dụng để tạo, sắp xếp và tính toán các bảng tính. Nó cung cấp tính năng công thức tính toán phức tạp, định dạng dữ liệu và khả năng tạo biểu đồ để hiển thị dữ liệu một cách trực quan.",
+                answered: ''
+            },
+            {
+                question: "Giao thức HTTP là gì và cách nó hoạt động trong việc truyền tải dữ liệu?",
+                type: 3,
+                answer: "HTTP (Hypertext Transfer Protocol) là một giao thức truyền tải dữ liệu trên web. Khi một trình duyệt web yêu cầu một trang web, nó gửi yêu cầu HTTP đến máy chủ web và sau đó nhận lại các phản hồi HTTP chứa dữ liệu trang web được yêu cầu.",
+                answered: ''
+            },
+            {
+                question: "Tên miền website .gov đại diện cho loại tổ chức nào?",
+                type: 3,
+                answer: "Tên miền website .gov đại diện cho các tổ chức chính phủ.",
+                answered: ''
+            },
+            {
+                question: "Blockchain là gì và ứng dụng của nó trong lĩnh vực nào?",
+                type: 3,
+                answer: "Blockchain là một công nghệ lưu trữ và truyền thông tin một cách an toàn và minh bạch. Nó được sử dụng trong nhiều lĩnh vực như tài chính, chuỗi cung ứng, bảo hiểm và quản lý dữ liệu, để tăng tính bảo mật, đáng tin cậy và giảm thiểu sự phụ thuộc vào bên trung gian.",
+                answered: ''
+            },
+            {
+                question: "Phần mềm Adobe Photoshop được sử dụng để làm gì và có tính năng đặc biệt nào?",
+                type: 3,
+                answer: "Phần mềm Adobe Photoshop được sử dụng để chỉnh sửa và xử lý hình ảnh. Nó cung cấp các công cụ mạnh mẽ để điều chỉnh màu sắc, cắt ghép, làm mờ và tạo hiệu ứng đặc biệt trên hình ảnh. Một tính năng đặc biệt của Photoshop là khả năng làm việc với các lớp, cho phép tạo ra các hiệu ứng và thiết kế phức tạp.",
+                answered: ''
+            }
+
+        ];
+
+        localStorage.setItem('dataQuestion', JSON.stringify(dataQuestion));
+
+        function getDataQuestion(data) {
+            var html = ''
+            data.forEach((element, index) => {
+                html += `
+               <div class="f-s-18  f-f-BeVietNam-Regular question mt-3"> <span class="f-f-BeVietNam-SemiBold "> Câu ${index + 1}:</span> ${element.question}
+                </div>
+               `
+                if (element.type == 2) {
+                    element.options.forEach((el, id) => {
+                        html += `
+                <label class="answer d-flex f-s-18 gap-2 mt-3" style="cursor: pointer;">
+                            <input type="radio" style="width: 20px;" name = ${index} data_answer = "${id}">
+                           ${el}
+                </label>
+                `
+                    })
+                }
+                else if (element.type == 3) {
+                    html += `
+                    <label class="answer d-flex f-s-18 gap-2 mt-3" style="cursor: pointer;">
+                               <textarea class="p-3" cols="95" rows="2" name = ${index}></textarea>
+                    </label>
+                    `
+
+                }
+                else {
+                    element.options.forEach((el, id) => {
+                        html += `
+                    <label class="answer d-flex f-s-18 gap-2 mt-3" style="cursor: pointer;">
+                                <input type="radio" style="width: 20px;" name =${index} data_answer = "${id}">
+                               ${el}
+                    </label>
+                    `
+                    })
+                }
+                html += `
+                
+                `
+            })
+            $('.quiz').html(html)
+        }
+        getDataQuestion(dataQuestion)
+        function getCorrectAnswer(dataQuestion, index) {
+            return dataQuestion[index].answer
+        }
+        function getSelectedAnswers() {
+            var answers = [];
+            $('input[type="radio"]').each(function () {
+                if ($(this).is(':checked')) {
+                    var answerIndex = $(this).attr('data_answer');
+                    var questionIndex = $(this).attr('name');
+                    answers.push({
+                        questionIndex: questionIndex,
+                        answerIndex: answerIndex,
+                        answerCorrect: getCorrectAnswer(dataQuestion, questionIndex)
+                    });
+                }
+            });
+            $('textarea').each(function () {
+                var answer = $(this).val().trim();
+                if (answer !== '') {
+                    var questionIndex = $(this).attr('name');
+                    answers.push({
+                        questionIndex: questionIndex,
+                        answerIndex: answer,
+                        answerCorrect: getCorrectAnswer(dataQuestion, questionIndex)
+                    });
+                }
+            });
+            return answers;
+        }
+
+
+        function submit() {
+
+            dataAnswers = getSelectedAnswers();
+            localStorage.setItem('answers', JSON.stringify(dataAnswers));
+            // console.log(dataAnswers);
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Nộp bài thành công",
+                showConfirmButton: true,
+                timer: 1500
+            })
+                .then((result) => {
+                    window.location.href = 'result-exam.html'
+                });
+        }
+        var countdownElement = document.getElementById('countdown');
+        var timeRemaining = 60 * 60; // 10 giây
+
+        function updateCountdown() {
+            var minutes = Math.floor(timeRemaining / 60);
+            var seconds = timeRemaining % 60;
+
+            // Định dạng chuỗi 'mm:ss'
+            var formattedTime = ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+
+            countdownElement.innerText = formattedTime;
+
+            if (timeRemaining > 0) {
+                timeRemaining--;
+            } else {
+                clearInterval(countdownInterval);
+                submit();
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Đã hết giờ",
+                    text: "Hệ thống sẽ tự nộp bài",
+                    showConfirmButton: true,
+                    // timer: 1500
+                }).then((result) => {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Nộp bài thành công",
+                        showConfirmButton: true,
+                        // timer: 1500
+                    });
+                });
+
+            }
+        }
+
+        // Cập nhật giá trị ban đầu
+        updateCountdown();
+
+        // Thiết lập đếm ngược
+        var countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>

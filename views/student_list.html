@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sinh Viên</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Style cho form */
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style cho danh sách sinh viên */
+        #studentList {
+            margin-top: 20px;
+        }
+
+        #studentItems {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #studentItems li {
+            margin-bottom: 5px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f6f8fa;">
+    <div class="container" style="background-color: #fff; border: 2px solid #e1e4e8;">
+        <h2>Danh Sách Sinh Viên</h2>
+        <div id="studentList">
+            <h3>Danh Sách Sinh Viên Kỳ Thi: <span id="examName"></span></h3>
+            <ul id="studentItems"></ul>
+        </div>
+        <!-- Form thêm mới sinh viên -->
+        <form id="addStudentForm">
+            <h3>Thêm Sinh Viên</h3>
+            <label for="studentName">Tên Sinh Viên:</label>
+            <input type="text" id="studentName" name="studentName" required>
+            <button type="submit">Thêm Mới</button>
+        </form>
+        <!-- Nút xác nhận -->
+        <button id="confirmButton">Xác Nhận</button>
+    </div>
+
+    <script>
+        // Lấy thông tin kỳ thi từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const examName = urlParams.get('examName');
+        const examId = parseInt(urlParams.get('examId'));
+
+        // Hiển thị tên kỳ thi
+        document.getElementById('examName').textContent = examName;
+
+        // Danh sách sinh viên của kỳ thi
+        let students = [];
+
+        // Hàm hiển thị danh sách sinh viên
+        function displayStudents() {
+            const studentItems = document.getElementById('studentItems');
+            studentItems.innerHTML = '';
+            students.forEach((student, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${student.name}`;
+                // Tạo button xóa sinh viên
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Xóa';
+                deleteButton.addEventListener('click', () => {
+                    students.splice(index, 1);
+                    displayStudents();
+                });
+                li.appendChild(deleteButton);
+                studentItems.appendChild(li);
+            });
+        }
+
+        // Xử lý sự kiện submit form thêm mới sinh viên
+        document.getElementById('addStudentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const studentName = document.getElementById('studentName').value;
+            students.push({ name: studentName });
+            displayStudents();
+            this.reset();
+        });
+
+        // Xử lý sự kiện click nút xác nhận
+        document.getElementById('confirmButton').addEventListener('click', function () {
+            localStorage.setItem('students_' + examId, JSON.stringify(students));
+            window.location.href = 'admin_dashboard.html';
+        });
+
+
+        window.onload = function () {
+            const storedStudents = localStorage.getItem('students_' + examId);
+            if (storedStudents) {
+                students = JSON.parse(storedStudents);
+                displayStudents();
+            }
+        };
+        displayStudents();
+    </script>
+</body>
+
+</html>

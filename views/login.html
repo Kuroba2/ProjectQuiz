@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Stylesheet/style.css">
+    <link rel="stylesheet" href="/Stylesheet/font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+
+<body style="background: linear-gradient(to left, #FF0000, #FFD700); height: 100vh;">
+
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-start h-100 align-items-center">
+                <div class="col-5 p-5"
+                    style="border-radius: 8px;box-shadow: -7px 7px 5px 1px rgba(0, 0, 0, 0.25); background-color: #fff;">
+                    <div class="row">
+                        <div class="col-auto f-s-32 f-f-BeVietNam-SemiBold">
+                            Đăng nhập
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="d-flex gap-2 px-3 form-group"
+                            style="border-radius: 9px;border: 0.833px solid #b3b3c9;">
+                            <img src="/Image/Login/i-user.svg" alt="">
+                            <input class="form-control f-s-14 py-3" type="text" id="user_name" required
+                                style="border: none; box-shadow: none;" placeholder="Nhập email hoặc số điện thoại">
+                        </div>
+                        <div class="invalid-feedback mess_user f-f-BeVietNam-Regular f-s-14">
+                            Vui lòng nhập username.
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex gap-2 px-3 form-group"
+                            style="border-radius: 9px;border: 0.833px solid #b3b3c9;">
+                            <img src="/Image/Login/i-password.svg" alt="">
+                            <input class="form-control f-s-14 py-3" type="password" id="password" required
+                                style="border: none; box-shadow: none;" placeholder="Mật khẩu">
+                            <img src="/Image/Login/i-see.svg" alt="">
+
+                        </div>
+                        <div class="invalid-feedback mess_password f-f-BeVietNam-Regular f-s-14">
+                            Vui lòng nhập mật khẩu.
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="d-flex justify-content-between ">
+                            <div class="d-flex gap-2">
+                                <input type="radio">
+                                <div class="f-f-BeVietNam-Regular f-s-14">Lưu mật khẩu</div>
+                            </div>
+                            <a class="f-f-BeVietNam-Regular f-s-14"
+                                style="color: #b3b3c9; text-decoration: none; cursor: pointer;">
+                                Quên mật khẩu?
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 px-0">
+                            <button class="w-100 text-white py-3" onclick="login()"
+                                style="border: none; outline: none; border-radius: 9px; background-color: #5381F8;">Đăng
+                                nhập</button>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-2 justify-content-center">
+                        <div class="col-auto f-s-14 f-f-BeVietNam-Regular">
+                            Bạn chưa có tài khoản? <a href="/views/register.html"
+                                style="text-decoration: none; cursor: pointer;">Đăng
+                                ký</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+</body>
+<script>
+
+    $('#user_name').focus()
+
+    var users = localStorage.getItem('users');
+    if (!users) {
+        // Nếu mảng user chưa tồn tại, tạo một mảng mới và lưu vào localStorage
+        users = [];
+        users.push({
+            username: "admin",
+            password: "111"
+        });
+    } else {
+        // Nếu mảng user đã tồn tại, chuyển đổi từ chuỗi JSON sang mảng JavaScript
+        users = JSON.parse(users);
+    }
+
+    function login() {
+        if (validate()) {
+            // Kiểm tra xem mảng user đã tồn tại trong localStorage chưa
+            if (users.find(user => user.username === $('#user_name').val() && user.password === $('#password').val() && user.username === "admin")) {
+
+                window.location.href = 'admin_dashboard.html'
+            }
+            if (users.find(user => user.username === $('#user_name').val() && user.password === $('#password').val() && user.username != "admin" ) ) {
+                window.location.href = 'index.html'
+            }
+            else {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Tên đăng nhập hoặc tài khoản không chính xác",
+                    showConfirmButton: true,
+                    // timer: 1500
+                });
+            }
+        }
+
+    }
+    function validate() {
+
+
+        if ($('#user_name').val() == '') {
+            $('.mess_user').addClass('d-block');
+
+        }
+        else {
+            $('.mess_user').addClass('d-none');
+        }
+        if ($('#password').val() == '') {
+            $('.mess_password').addClass('d-block');
+        }
+        else {
+            $('.mess_password').addClass('d-none');
+        }
+
+        if ($('#user_name').val() != '' && $('#password').val() != '') {
+            return true
+        }
+        else return false;
+    }
+    function setupEnterEvent(id) {
+        document.getElementById(id).addEventListener('keyup', function (event) {
+            if (event.key === 'Enter') {  // Sử dụng 'Enter' thay vì mã keyCode
+                login();
+            }
+        });
+    }
+    setupEnterEvent('user_name');
+    setupEnterEvent('password');
+</script>
+
+</html>
